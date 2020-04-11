@@ -1,0 +1,32 @@
+name: CI
+on: [push]
+env:
+  CI: 'true'
+jobs:
+  spring-integration-flows:
+    strategy:
+      matrix:
+        java: [14]
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    name: spring-integration flows
+    steps:
+    - uses: actions/checkout@v1
+    - uses: docker-practice/actions-setup-docker@master
+    - uses: actions/cache@v1
+      with:
+        path: ~/.docker
+        key: ${{ runner.os }}-docker-${{ hashFiles('**/config.json') }}
+        restore-keys: |
+          ${{ runner.os }}-docker-
+    - uses: actions/setup-java@v1
+      with:
+        java-version: ${{ matrix.java }}
+    - uses: actions/cache@v1
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/mvnw') }}
+        restore-keys: |
+          ${{ runner.os }}-gradle-
+    - run: sudo apt-get install --fix-missing httpie curl jq
+    - run: cd $GITHUB_WORKSPACE && ./mvnw

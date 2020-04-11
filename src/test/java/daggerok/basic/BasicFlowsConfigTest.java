@@ -49,9 +49,9 @@ class BasicFlowsConfig {
 
   @Bean
   IntegrationFlow basicFlow() {
-    var millis456 = Duration.ofMillis(234);
+    var millis = Duration.ofMillis(234);
     return IntegrationFlows.from(methodInvokingMessageSource(),
-                                 s -> s.poller(Pollers.fixedDelay(millis456, millis456))).log("1-polled")
+                                 s -> s.poller(Pollers.fixedDelay(millis, millis))).log("1-polled")
                            .channel(inputChannel()).log("2-input-channel")
                            .filter((Integer i) -> i % 2 == 0).log("3-filtered")
                            .transform(Object::toString).log("4-transformed")

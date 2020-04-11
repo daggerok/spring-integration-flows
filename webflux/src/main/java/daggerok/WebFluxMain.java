@@ -4,8 +4,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringIntegrationFlowsApp {
+public class WebFluxMain {
   public static void main(String[] args) {
-    SpringApplication.run(SpringIntegrationFlowsApp.class, args);
+    SpringApplication.run(WebFluxMain.class, args);
   }
 }

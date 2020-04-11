@@ -3,7 +3,7 @@
 ```bash
 jdk14
 jenv local 14
-./mvnw
+./mvnw clean test
 ```
 
 ## other repos

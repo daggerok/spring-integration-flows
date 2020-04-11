@@ -23,7 +23,7 @@ import java.util.List;
 @SpringBootApplication
 class SpringIntegrationFlowWebfluxApp {
   public static void main(String[] args) {
-    SpringApplication.run(SpringIntegrationWebfluxApp.class, args);
+    SpringApplication.run(SpringIntegrationFlowWebfluxApp.class, args);
   }
 }
 

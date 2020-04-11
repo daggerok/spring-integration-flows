@@ -18,7 +18,9 @@ import org.springframework.integration.http.inbound.RequestMapping;
 import org.springframework.integration.webflux.inbound.WebFluxInboundEndpoint;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.test.web.reactive.server.WebTestClient;
+import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
+import reactor.test.StepVerifier;
 
 import java.util.Collections;
 import java.util.Map;
@@ -61,6 +63,7 @@ class SpringIntegrationWebfluxAppConfig {
 
 @SpringBootTest(
     classes = SpringIntegrationWebfluxApp.class,
+    // properties = "spring.main.web-application-type=reactive",
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class SpringIntegrationWebfluxAppTest {
 
@@ -71,14 +74,28 @@ class SpringIntegrationWebfluxAppTest {
   Integer port;
 
   @Test
-  void test() {
+  void web_client_test() {
+    var flux = WebClient.builder()
+                        .build()
+                        .get()
+                        .uri(String.format("http://127.0.0.1:%d/webflux-test", port))
+                        .retrieve()
+                        .bodyToFlux(new ParameterizedTypeReference<Map<String, String>>() {});
+    StepVerifier.create(flux)
+                .expectNextMatches(map -> map.getOrDefault("result", "").contains("It works"))
+                .verifyComplete();
+  }
+
+  @Test
+  void test_web_client_test() {
     WebTestClient.bindToApplicationContext(applicationContext)
                  .build()
                  .get()
                  .uri(String.format("http://127.0.0.1:%d/webflux-test", port))
                  .exchange()
                  .expectStatus().isOk()
-                 .expectBody(new ParameterizedTypeReference<Map<String, String>>() {})
+                 .expectBody(new ParameterizedTypeReference<Map<String, String>>() {
+                 })
                  .consumeWith(result -> {
                    var body = result.getResponseBody();
                    assertThat(body).isNotNull()

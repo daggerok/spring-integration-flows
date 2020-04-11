@@ -22,7 +22,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @Configuration
 @EnableIntegration
-class BasicFlowsConfig {
+class BasicFlowApp {
 
   @Bean
   AtomicInteger atomicInteger() {
@@ -61,9 +61,9 @@ class BasicFlowsConfig {
 }
 
 @Log4j2
-@SpringBootTest
+@SpringBootTest(classes = BasicFlowApp.class)
 @AllArgsConstructor(onConstructor_ = @Autowired)
-class BasicFlowsConfigTest {
+class BasicFlowAppTest {
 
   IntegrationFlow basicFlow;
 

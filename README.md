@@ -1,4 +1,4 @@
-# Spring Integration Flows
+# Spring Integration Flows [![CI](https://github.com/daggerok/spring-integration-flows/workflows/CI/badge.svg?event=status)](https://github.com/daggerok/spring-integration-flows/actions?query=workflow%3ACI)
 
 ## resources
 * https://github.com/spring-projects/spring-integration-java-dsl/wiki/Spring-Integration-Java-DSL-Reference

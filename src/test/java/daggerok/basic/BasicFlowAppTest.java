@@ -72,10 +72,11 @@ class BasicFlowAppConfig {
 }
 
 @Log4j2
-@AllArgsConstructor(onConstructor_ = @Autowired)
 @SpringBootTest(
-    classes = BasicFlowApp.class,
-    properties = "logging.level.org.springframework.integration=DEBUG")
+    classes = BasicFlowApp.class
+    // , properties = "logging.level.org.springframework.integration=DEBUG"
+)
+@AllArgsConstructor(onConstructor_ = @Autowired)
 class BasicFlowAppTest {
 
   IntegrationFlow basicFlow;

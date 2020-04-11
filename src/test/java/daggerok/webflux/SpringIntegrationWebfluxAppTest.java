@@ -1,6 +1,5 @@
 package daggerok.webflux;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +38,7 @@ class SpringIntegrationWebfluxApp {
 class SpringIntegrationWebfluxAppConfig {
 
   @Bean
-  public WebFluxInboundEndpoint simpleInboundEndpoint() {
+  WebFluxInboundEndpoint simpleInboundEndpoint() {
     var endpoint = new WebFluxInboundEndpoint();
     var requestMapping = new RequestMapping();
     requestMapping.setPathPatterns("/webflux-test");
@@ -68,9 +67,6 @@ class SpringIntegrationWebfluxAppTest {
   @Autowired
   ApplicationContext applicationContext;
 
-  @Autowired
-  ObjectMapper objectMapper;
-
   @LocalServerPort
   Integer port;
 
@@ -85,7 +81,8 @@ class SpringIntegrationWebfluxAppTest {
                  .expectBody(new ParameterizedTypeReference<Map<String, String>>() {})
                  .consumeWith(result -> {
                    var body = result.getResponseBody();
-                   assertThat(body).hasSize(1);
+                   assertThat(body).isNotNull()
+                                   .hasSize(1);
                    assertThat(body.get("result")).isNotNull()
                                                  .containsIgnoringCase("it works");
                  });

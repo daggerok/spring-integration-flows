@@ -12,6 +12,7 @@ jenv local 14
 * https://github.com/daggerok/spring-integration-5-examples
 
 ## resources
+* https://docs.spring.io/spring-integration/reference/html/webflux.html#webflux
 * https://github.com/spring-projects/spring-integration-java-dsl/wiki/Spring-Integration-Java-DSL-Reference
 * https://github.com/spring-projects/spring-integration-samples
 * [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)

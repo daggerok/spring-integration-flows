@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,9 +22,18 @@ import org.springframework.messaging.MessageChannel;
 import java.time.Duration;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import static org.springframework.integration.handler.LoggingHandler.Level.DEBUG;
+
+@SpringBootApplication
+class BasicFlowApp {
+  public static void main(String[] args) {
+    SpringApplication.run(BasicFlowApp.class, args);
+  }
+}
+
 @Configuration
 @EnableIntegration
-class BasicFlowApp {
+class BasicFlowAppConfig {
 
   @Bean
   AtomicInteger atomicInteger() {
@@ -51,18 +62,20 @@ class BasicFlowApp {
   IntegrationFlow basicFlow() {
     var millis = Duration.ofMillis(234);
     return IntegrationFlows.from(methodInvokingMessageSource(),
-                                 s -> s.poller(Pollers.fixedDelay(millis, millis))).log("1-polled")
-                           .channel(inputChannel()).log("2-input-channel")
-                           .filter((Integer i) -> i % 2 == 0).log("3-filtered")
-                           .transform(Object::toString).log("4-transformed")
-                           .channel(queue()).log("5-queued")
+                                 s -> s.poller(Pollers.fixedDelay(millis, millis))).log(DEBUG, "1-polled")
+                           .channel(inputChannel()).log(DEBUG, "2-input-channel")
+                           .filter((Integer i) -> i % 2 == 0).log(DEBUG, "3-filtered")
+                           .transform(Object::toString).log(DEBUG, "4-transformed")
+                           .channel(queue()).log(DEBUG, "5-queued")
                            .get();
   }
 }
 
 @Log4j2
-@SpringBootTest(classes = BasicFlowApp.class)
 @AllArgsConstructor(onConstructor_ = @Autowired)
+@SpringBootTest(
+    classes = BasicFlowApp.class,
+    properties = "logging.level.org.springframework.integration=DEBUG")
 class BasicFlowAppTest {
 
   IntegrationFlow basicFlow;

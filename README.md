@@ -1,5 +1,11 @@
 # Spring Integration Flows [![CI](https://github.com/daggerok/spring-integration-flows/workflows/CI/badge.svg)](https://github.com/daggerok/spring-integration-flows/actions?query=workflow%3ACI)
 
+```bash
+jdk14
+jenv local 14
+./mvnw
+```
+
 ## other repos
 * https://github.com/daggerok/spring-integration-kotlin-dsl
 * https://github.com/daggerok/spring-integration-java-DSL-example

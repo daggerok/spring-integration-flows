@@ -31,7 +31,7 @@ class BasicFlowsConfig {
 
   @Bean
   MessageSource<?> methodInvokingMessageSource() {
-    MethodInvokingMessageSource source = new MethodInvokingMessageSource();
+    var source = new MethodInvokingMessageSource();
     source.setObject(atomicInteger());
     source.setMethodName("incrementAndGet");
     return source;

@@ -1,5 +1,10 @@
 # Spring Integration Flows [![CI](https://github.com/daggerok/spring-integration-flows/workflows/CI/badge.svg)](https://github.com/daggerok/spring-integration-flows/actions?query=workflow%3ACI)
 
+## other repos
+* https://github.com/daggerok/spring-integration-kotlin-dsl
+* https://github.com/daggerok/spring-integration-java-DSL-example
+* https://github.com/daggerok/spring-integration-5-examples
+
 ## resources
 * https://github.com/spring-projects/spring-integration-java-dsl/wiki/Spring-Integration-Java-DSL-Reference
 * https://github.com/spring-projects/spring-integration-samples
